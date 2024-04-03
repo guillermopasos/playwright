@@ -42,7 +42,7 @@ test('End to End scenario', async ({page})=>{
     const subOrderId = orderId.substring(3,27);
     console.log(subOrderId);
     const myOrders = page.locator("button[routerlink='/dashboard/myorders']");
-    await myOrders.click(3,);
+    await myOrders.click();
     await page.locator('table.table-bordered').waitFor();
     const viewBtns = await page.$$('div.container.table-responsive button.btn-primary');
     const orders = await page.locator("tbody tr th[scope='row']").allTextContents();

@@ -1,6 +1,6 @@
 const {test, expect} = require('@playwright/test');
 
-test.only('pick a date', async ({page})=>{
+test('pick a date', async ({page})=>{
     await page.goto('https://rahulshettyacademy.com/seleniumPractise/#/offers');
     const monthNumber ='3';
     const date ='18';
