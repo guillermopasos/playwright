@@ -1,19 +1,19 @@
-const {test, expect, request} = require('@playwright/test');
-const {APIUtils} = require('../utils/APIUtils');
+const { test, expect, request } = require('@playwright/test');
+const { APIUtils } = require('../utils/APIUtils');
 
-const loginData = {userEmail: "memopasos@hotmail.com", userPassword: "Test1234"};
-const createOrderPayload = {orders: [{country: "Mexico", productOrderedId: "6581ca399fd99c85e8ee7f45"}]};
+const loginData = { userEmail: "memopasos@hotmail.com", userPassword: "Test1234" };
+const createOrderPayload = { orders: [{ country: "Mexico", productOrderedId: "6581ca399fd99c85e8ee7f45" }] };
 let response;
 
 
-test.beforeAll(async()=>{
+test.beforeAll(async () => {
     const apiContext = await request.newContext();
     const apiUtils = new APIUtils(apiContext, loginData);
     response = await apiUtils.createOrder(createOrderPayload);
 
 });
 
-test('Web AP', async ({page})=>{
+test('Web AP', async ({ page }) => {
     page.addInitScript(value => {
         window.localStorage.setItem('token', value);
     }, response.token);
@@ -31,7 +31,7 @@ test('Web AP', async ({page})=>{
             await viewBtns[i].click();
             break;
         }
-        
+
     }
     const orderSummaryId = await page.locator('div.col-text.-main').textContent();
     expect(orderSummaryId).toBe(response.orderId);
